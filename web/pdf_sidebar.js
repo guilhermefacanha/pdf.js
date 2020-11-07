@@ -83,11 +83,13 @@ class PDFSidebar {
     this.outlineButton = elements.outlineButton;
     this.attachmentsButton = elements.attachmentsButton;
     this.layersButton = elements.layersButton;
+    this.searchButton = elements.searchButton;
 
     this.thumbnailView = elements.thumbnailView;
     this.outlineView = elements.outlineView;
     this.attachmentsView = elements.attachmentsView;
     this.layersView = elements.layersView;
+    this.searchView = elements.searchView;
 
     this._outlineOptionsContainer = elements.outlineOptionsContainer;
     this._currentOutlineItemButton = elements.currentOutlineItemButton;
@@ -201,6 +203,11 @@ class PDFSidebar {
           return false;
         }
         break;
+      case SidebarView.SEARCH:
+        if (this.searchButton.disabled) {
+          return false;
+        }
+        break;
       default:
         console.error(`PDFSidebar._switchView: "${view}" is not a valid view.`);
         return false;
@@ -223,6 +230,7 @@ class PDFSidebar {
       view === SidebarView.ATTACHMENTS
     );
     this.layersButton.classList.toggle("toggled", view === SidebarView.LAYERS);
+    this.searchButton.classList.toggle("toggled", view === SidebarView.SEARCH);
     // ... and for all views.
     this.thumbnailView.classList.toggle("hidden", view !== SidebarView.THUMBS);
     this.outlineView.classList.toggle("hidden", view !== SidebarView.OUTLINE);
@@ -231,6 +239,7 @@ class PDFSidebar {
       view !== SidebarView.ATTACHMENTS
     );
     this.layersView.classList.toggle("hidden", view !== SidebarView.LAYERS);
+    this.searchView.classList.toggle("hidden", view !== SidebarView.SEARCH);
 
     // Finally, update view-specific CSS classes.
     this._outlineOptionsContainer.classList.toggle(
@@ -404,9 +413,13 @@ class PDFSidebar {
       this.eventBus.dispatch("resetlayers", { source: this });
     });
 
-    // Buttons for view-specific options.
+	// Buttons for view-specific options.
     this._currentOutlineItemButton.addEventListener("click", () => {
       this.eventBus.dispatch("currentoutlineitem", { source: this });
+    });
+
+    this.searchButton.addEventListener("click", () => {
+      this.switchView(SidebarView.SEARCH);
     });
 
     // Disable/enable views.

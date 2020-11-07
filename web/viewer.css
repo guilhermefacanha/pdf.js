@@ -83,6 +83,7 @@
   --toolbarButton-viewAttachments-icon: url(images/toolbarButton-viewAttachments.svg);
   --toolbarButton-viewLayers-icon: url(images/toolbarButton-viewLayers.svg);
   --toolbarButton-currentOutlineItem-icon: url(images/toolbarButton-currentOutlineItem.svg);
+  --toolbarButton-viewSearch-icon: url(images/toolbarButton-search.svg);
   --toolbarButton-search-icon: url(images/toolbarButton-search.svg);
   --findbarButton-previous-icon: url(images/findbarButton-previous.svg);
   --findbarButton-next-icon: url(images/findbarButton-next.svg);
@@ -165,6 +166,41 @@
     --overlay-button-hover-bg-color: Highlight;
     --overlay-button-hover-color: ButtonFace;
     --field-border-color: ButtonText;
+    --treeitem-expanded-icon: url(images/treeitem-expanded-dark.svg);
+    --treeitem-collapsed-icon: url(images/treeitem-collapsed-dark.svg);
+    --toolbarButton-menuArrow-icon: url(images/toolbarButton-menuArrow-dark.svg);
+    --toolbarButton-sidebarToggle-icon: url(images/toolbarButton-sidebarToggle-dark.svg);
+    --toolbarButton-secondaryToolbarToggle-icon: url(images/toolbarButton-secondaryToolbarToggle-dark.svg);
+    --toolbarButton-pageUp-icon: url(images/toolbarButton-pageUp-dark.svg);
+    --toolbarButton-pageDown-icon: url(images/toolbarButton-pageDown-dark.svg);
+    --toolbarButton-zoomOut-icon: url(images/toolbarButton-zoomOut-dark.svg);
+    --toolbarButton-zoomIn-icon: url(images/toolbarButton-zoomIn-dark.svg);
+    --toolbarButton-presentationMode-icon: url(images/toolbarButton-presentationMode-dark.svg);
+    --toolbarButton-print-icon: url(images/toolbarButton-print-dark.svg);
+    --toolbarButton-openFile-icon: url(images/toolbarButton-openFile-dark.svg);
+    --toolbarButton-download-icon: url(images/toolbarButton-download-dark.svg);
+    --toolbarButton-bookmark-icon: url(images/toolbarButton-bookmark-dark.svg);
+    --toolbarButton-viewThumbnail-icon: url(images/toolbarButton-viewThumbnail-dark.svg);
+    --toolbarButton-viewOutline-icon: url(images/toolbarButton-viewOutline-dark.svg);
+    --toolbarButton-viewAttachments-icon: url(images/toolbarButton-viewAttachments-dark.svg);
+    --toolbarButton-viewLayers-icon: url(images/toolbarButton-viewLayers-dark.svg);
+    --toolbarButton-viewSearch-icon: url(images/toolbarButton-search-dark.svg);
+    --toolbarButton-search-icon: url(images/toolbarButton-search-dark.svg);
+    --findbarButton-previous-icon: url(images/findbarButton-previous-dark.svg);
+    --findbarButton-next-icon: url(images/findbarButton-next-dark.svg);
+    --secondaryToolbarButton-firstPage-icon: url(images/secondaryToolbarButton-firstPage-dark.svg);
+    --secondaryToolbarButton-lastPage-icon: url(images/secondaryToolbarButton-lastPage-dark.svg);
+    --secondaryToolbarButton-rotateCcw-icon: url(images/secondaryToolbarButton-rotateCcw-dark.svg);
+    --secondaryToolbarButton-rotateCw-icon: url(images/secondaryToolbarButton-rotateCw-dark.svg);
+    --secondaryToolbarButton-selectTool-icon: url(images/secondaryToolbarButton-selectTool-dark.svg);
+    --secondaryToolbarButton-handTool-icon: url(images/secondaryToolbarButton-handTool-dark.svg);
+    --secondaryToolbarButton-scrollVertical-icon: url(images/secondaryToolbarButton-scrollVertical-dark.svg);
+    --secondaryToolbarButton-scrollHorizontal-icon: url(images/secondaryToolbarButton-scrollHorizontal-dark.svg);
+    --secondaryToolbarButton-scrollWrapped-icon: url(images/secondaryToolbarButton-scrollWrapped-dark.svg);
+    --secondaryToolbarButton-spreadNone-icon: url(images/secondaryToolbarButton-spreadNone-dark.svg);
+    --secondaryToolbarButton-spreadOdd-icon: url(images/secondaryToolbarButton-spreadOdd-dark.svg);
+    --secondaryToolbarButton-spreadEven-icon: url(images/secondaryToolbarButton-spreadEven-dark.svg);
+    --secondaryToolbarButton-documentProperties-icon: url(images/secondaryToolbarButton-documentProperties-dark.svg);
   }
 }
 
@@ -1112,6 +1148,10 @@ html[dir="rtl"] #currentOutlineItem.toolbarButton::before {
   transform: scaleX(-1);
 }
 
+#viewSearch.toolbarButton::before {
+  content: var(--toolbarButton-viewSearch-icon);
+}
+
 #viewFind.toolbarButton::before {
   -webkit-mask-image: var(--toolbarButton-search-icon);
   mask-image: var(--toolbarButton-search-icon);
@@ -1395,6 +1435,64 @@ a:focus > .thumbnail > .thumbnailSelectionRing,
   background-color: var(--sidebaritem-bg-color);
   background-clip: padding-box;
   color: rgba(255, 255, 255, 1);
+}
+
+
+#searchView {
+  position: absolute;
+  width: calc(100% - 40px);
+  top: 0;
+  bottom: 0;
+  padding: 10px 20px 0;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  background-color: var(--sidebar-bg-color);
+}
+
+/* TODO: PDFSearchView */
+.pageMsg{
+  padding-top: 10px;
+  padding-bottom: 10px;
+  color: white;
+  font-size: 12px;
+}
+
+.searchMsg {
+  font-size: 12px;
+  font-weight: 300;
+  color: #ff8f00;
+}
+
+.searchResults{
+  font-size: 10px;
+  color: rgba(255,255,255, 0.8) !important;
+}
+
+.searchResult{
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.searchResult:hover {
+  background-color: var(--sidebaritem-bg-color);
+  background-clip: padding-box;
+  color: rgba(255, 255, 255, 0.9);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.highlighted{
+  color: white;
+  background: rgba(255, 111, 0, 0.8);
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  border-radius: 2px;
+}
+
+#searchView > a:active,
+#searchView > a:focus {
+  outline: 0;
 }
 
 #outlineView,

@@ -75,6 +75,8 @@ import { PDFScriptingManager } from "./pdf_scripting_manager.js";
 import { PDFSidebar } from "./pdf_sidebar.js";
 import { PDFSidebarResizer } from "./pdf_sidebar_resizer.js";
 import { PDFThumbnailViewer } from "./pdf_thumbnail_viewer.js";
+// eslint-disable-next-line sort-imports
+import { PDFSearchViewer } from "./pdf_search_viewer.js";
 import { PDFViewer } from "./pdf_viewer.js";
 import { SecondaryToolbar } from "./secondary_toolbar.js";
 import { Toolbar } from "./toolbar.js";
@@ -261,6 +263,9 @@ const PDFViewerApplication = {
   _saveInProgress: false,
   _wheelUnusedTicks: 0,
   _idleCallbacks: new Set(),
+
+  /** @type {PDFSearchViewer} */
+  pdfSearchViewer: null,
 
   // Called once when the document is loaded.
   async initialize(appConfig) {
@@ -529,6 +534,15 @@ const PDFViewerApplication = {
       l10n: this.l10n,
     });
     pdfRenderingQueue.setThumbnailViewer(this.pdfThumbnailViewer);
+
+    this.pdfSearchViewer = new PDFSearchViewer({
+      container: appConfig.sidebar.searchView,
+      eventBus,
+      renderingQueue: pdfRenderingQueue,
+      linkService: pdfLinkService,
+      l10n: this.l10n,
+      searchButton: appConfig.sidebar.searchButton,
+    });
 
     this.pdfHistory = new PDFHistory({
       linkService: pdfLinkService,
@@ -2603,6 +2617,7 @@ function webViewerFind(evt) {
     highlightAll: evt.highlightAll,
     findPrevious: evt.findPrevious,
   });
+  PDFViewerApplication.pdfSearchViewer.open();
 }
 
 function webViewerFindFromUrlHash(evt) {
@@ -2614,6 +2629,12 @@ function webViewerFindFromUrlHash(evt) {
     highlightAll: true,
     findPrevious: false,
   });
+  PDFViewerApplication.findBar.open();
+  PDFViewerApplication.findBar.findField.value = evt.query;
+  PDFViewerApplication.findBar.highlightAll.checked = true;
+
+  PDFViewerApplication.pdfSidebar.open();
+  PDFViewerApplication.pdfSearchViewer.open();
 }
 
 function webViewerUpdateFindMatchesCount({ matchesCount }) {
