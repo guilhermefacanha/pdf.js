@@ -2594,7 +2594,10 @@ function webViewerFindFromUrlHash(evt) {
     highlightAll: true,
     findPrevious: false,
   });
+  PDFViewerApplication.findBar.open();
+  PDFViewerApplication.findBar.findField.value = evt.query;
 }
+
 
 function webViewerUpdateFindMatchesCount({ matchesCount }) {
   if (PDFViewerApplication.supportsIntegratedFind) {
