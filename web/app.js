@@ -2598,7 +2598,6 @@ function webViewerFindFromUrlHash(evt) {
   PDFViewerApplication.findBar.findField.value = evt.query;
 }
 
-
 function webViewerUpdateFindMatchesCount({ matchesCount }) {
   if (PDFViewerApplication.supportsIntegratedFind) {
     PDFViewerApplication.externalServices.updateFindMatchesCount(matchesCount);
