@@ -2596,7 +2596,7 @@ function webViewerFindFromUrlHash(evt) {
   });
   PDFViewerApplication.findBar.open();
   PDFViewerApplication.findBar.findField.value = evt.query;
-  PDFViewerApplication.findBar.highlightAll.click();
+  PDFViewerApplication.findBar.highlightAll.checked = true;
 
   PDFViewerApplication.pdfSidebar.open();
 }
