@@ -1394,7 +1394,7 @@ a:focus > .thumbnail > .thumbnailSelectionRing,
   background-color: var(--sidebar-bg-color);
 }
 
-/* TODO: Dados */
+/* TODO: PDFSearchView */
 .pageMsg{
   padding-top: 10px;
   padding-bottom: 10px;
