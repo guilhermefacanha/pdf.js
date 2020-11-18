@@ -127,11 +127,13 @@ function getViewerConfiguration() {
       outlineButton: document.getElementById("viewOutline"),
       attachmentsButton: document.getElementById("viewAttachments"),
       layersButton: document.getElementById("viewLayers"),
+      searchButton: document.getElementById("viewSearch"),
       // Views
       thumbnailView: document.getElementById("thumbnailView"),
       outlineView: document.getElementById("outlineView"),
       attachmentsView: document.getElementById("attachmentsView"),
       layersView: document.getElementById("layersView"),
+      searchView: document.getElementById("searchView"),
     },
     sidebarResizer: {
       outerContainer: document.getElementById("outerContainer"),

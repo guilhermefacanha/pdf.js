@@ -75,6 +75,7 @@
   --toolbarButton-viewOutline-icon: url(images/toolbarButton-viewOutline.svg);
   --toolbarButton-viewAttachments-icon: url(images/toolbarButton-viewAttachments.svg);
   --toolbarButton-viewLayers-icon: url(images/toolbarButton-viewLayers.svg);
+  --toolbarButton-viewSearch-icon: url(images/toolbarButton-search.svg);
   --toolbarButton-search-icon: url(images/toolbarButton-search.svg);
   --findbarButton-previous-icon: url(images/findbarButton-previous.svg);
   --findbarButton-next-icon: url(images/findbarButton-next.svg);
@@ -146,6 +147,7 @@
     --toolbarButton-viewOutline-icon: url(images/toolbarButton-viewOutline-dark.svg);
     --toolbarButton-viewAttachments-icon: url(images/toolbarButton-viewAttachments-dark.svg);
     --toolbarButton-viewLayers-icon: url(images/toolbarButton-viewLayers-dark.svg);
+    --toolbarButton-viewSearch-icon: url(images/toolbarButton-search-dark.svg);
     --toolbarButton-search-icon: url(images/toolbarButton-search-dark.svg);
     --findbarButton-previous-icon: url(images/findbarButton-previous-dark.svg);
     --findbarButton-next-icon: url(images/findbarButton-next-dark.svg);
@@ -1104,6 +1106,10 @@ html[dir="rtl"] #viewOutline.toolbarButton::before {
   content: var(--toolbarButton-viewLayers-icon);
 }
 
+#viewSearch.toolbarButton::before {
+  content: var(--toolbarButton-viewSearch-icon);
+}
+
 #viewFind.toolbarButton::before {
   content: var(--toolbarButton-search-icon);
 }
@@ -1374,6 +1380,64 @@ a:focus > .thumbnail > .thumbnailSelectionRing,
   background-color: var(--sidebaritem-bg-color);
   background-clip: padding-box;
   color: rgba(255, 255, 255, 1);
+}
+
+
+#searchView {
+  position: absolute;
+  width: calc(100% - 40px);
+  top: 0;
+  bottom: 0;
+  padding: 10px 20px 0;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  background-color: var(--sidebar-bg-color);
+}
+
+/* TODO: Dados */
+.pageMsg{
+  padding-top: 10px;
+  padding-bottom: 10px;
+  color: white;
+  font-size: 12px;
+}
+
+.searchMsg {
+  font-size: 12px;
+  font-weight: 300;
+  color: #ff8f00;
+}
+
+.searchResults{
+  font-size: 10px;
+  color: rgba(255,255,255, 0.8) !important;
+}
+
+.searchResult{
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.searchResult:hover {
+  background-color: var(--sidebaritem-bg-color);
+  background-clip: padding-box;
+  color: rgba(255, 255, 255, 0.9);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.highlighted{
+  color: white;
+  background: rgba(255, 111, 0, 0.8);
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  border-radius: 2px;
+}
+
+#searchView > a:active,
+#searchView > a:focus {
+  outline: 0;
 }
 
 #outlineView,
