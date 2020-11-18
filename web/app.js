@@ -251,9 +251,6 @@ const PDFViewerApplication = {
   _wheelUnusedTicks: 0,
   _idleCallbacks: new Set(),
 
-  /** @type {PDFSearchViewer} */
-  pdfSearchViewer: null,
-
   // Called once when the document is loaded.
   async initialize(appConfig) {
     this.preferences = this.externalServices.createPreferences();
@@ -2611,6 +2608,9 @@ function webViewerFindFromUrlHash(evt) {
   });
   PDFViewerApplication.findBar.open();
   PDFViewerApplication.findBar.findField.value = evt.query;
+  PDFViewerApplication.findBar.highlightAll.checked = true;
+
+  PDFViewerApplication.pdfSidebar.open();
   PDFViewerApplication.pdfSearchViewer.open();
 }
 
