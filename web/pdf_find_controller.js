@@ -33,23 +33,24 @@ const CHARACTERS_TO_NORMALIZE = {
   "\u2019": "'", // Right single quotation mark
   "\u201A": "'", // Single low-9 quotation mark
   "\u201B": "'", // Single high-reversed-9 quotation mark
-  "\u201C": '"', // Left double quotation mark
-  "\u201D": '"', // Right double quotation mark
-  "\u201E": '"', // Double low-9 quotation mark
-  "\u201F": '"', // Double high-reversed-9 quotation mark
+  "\u201C": "\"", // Left double quotation mark
+  "\u201D": "\"", // Right double quotation mark
+  "\u201E": "\"", // Double low-9 quotation mark
+  "\u201F": "\"", // Double high-reversed-9 quotation mark
   "\u00BC": "1/4", // Vulgar fraction one quarter
   "\u00BD": "1/2", // Vulgar fraction one half
   "\u00BE": "3/4", // Vulgar fraction three quarters
 };
 
 let normalizationRegex = null;
+
 function normalize(text) {
   if (!normalizationRegex) {
     // Compile the regular expression for text normalization once.
     const replace = Object.keys(CHARACTERS_TO_NORMALIZE).join("");
     normalizationRegex = new RegExp(`[${replace}]`, "g");
   }
-  return text.replace(normalizationRegex, function (ch) {
+  return text.replace(normalizationRegex, function(ch) {
     return CHARACTERS_TO_NORMALIZE[ch];
   });
 }
@@ -312,7 +313,7 @@ class PDFFindController {
 
     // Sort the array of `{ match: <match>, matchLength: <matchLength> }`
     // objects on increasing index first and on the length otherwise.
-    matchesWithLength.sort(function (a, b) {
+    matchesWithLength.sort(function(a, b) {
       return a.match === b.match
         ? a.matchLength - b.matchLength
         : a.match - b.match;
@@ -406,7 +407,7 @@ class PDFFindController {
     this._prepareMatches(
       matchesWithLength,
       this._pageMatches[pageIndex],
-      this._pageMatchesLength[pageIndex]
+      this._pageMatchesLength[pageIndex],
     );
   }
 
@@ -484,15 +485,31 @@ class PDFFindController {
             reason => {
               console.error(
                 `Unable to get text content for page ${i + 1}`,
-                reason
+                reason,
               );
               // Page error -- assuming no text content.
               this._pageContents[i] = "";
               extractTextCapability.resolve(i);
-            }
+            },
           );
       });
     }
+  }
+
+  goToMatch(pageIndex, matchIndex) {
+    if (pageIndex > this.pageMatches.length) {
+      return;
+    }
+    if (matchIndex > this.pageMatches[pageIndex].length) {
+      return;
+    }
+    this._offset.pageIdx = pageIndex;
+    this._offset.matchIdx = matchIndex;
+    this._updateMatch(true);
+  }
+
+  changeHighlight(value) {
+    this._highlightMatches = value;
   }
 
   _updatePage(index) {
@@ -727,6 +744,7 @@ class PDFFindController {
     this._eventBus.dispatch("updatefindmatchescount", {
       source: this,
       matchesCount: this._requestMatchesCount(),
+      pageContents: this._pageContents,
     });
   }
 
@@ -741,4 +759,4 @@ class PDFFindController {
   }
 }
 
-export { FindState, PDFFindController };
+export { FindState, PDFFindController, normalize };

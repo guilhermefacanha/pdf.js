@@ -25,6 +25,7 @@ const SidebarView = {
   OUTLINE: 2,
   ATTACHMENTS: 3,
   LAYERS: 4,
+  SEARCH: 5,
 };
 
 /**
@@ -97,11 +98,13 @@ class PDFSidebar {
     this.outlineButton = elements.outlineButton;
     this.attachmentsButton = elements.attachmentsButton;
     this.layersButton = elements.layersButton;
+    this.searchButton = elements.searchButton;
 
     this.thumbnailView = elements.thumbnailView;
     this.outlineView = elements.outlineView;
     this.attachmentsView = elements.attachmentsView;
     this.layersView = elements.layersView;
+    this.searchView = elements.searchView;
 
     this.eventBus = eventBus;
     this.l10n = l10n;
@@ -212,6 +215,11 @@ class PDFSidebar {
           return false;
         }
         break;
+      case SidebarView.SEARCH:
+        if (this.searchButton.disabled) {
+          return false;
+        }
+        break;
       default:
         console.error(`PDFSidebar._switchView: "${view}" is not a valid view.`);
         return false;
@@ -234,6 +242,7 @@ class PDFSidebar {
       view === SidebarView.ATTACHMENTS
     );
     this.layersButton.classList.toggle("toggled", view === SidebarView.LAYERS);
+    this.searchButton.classList.toggle("toggled", view === SidebarView.SEARCH);
     // ... and for all views.
     this.thumbnailView.classList.toggle("hidden", view !== SidebarView.THUMBS);
     this.outlineView.classList.toggle("hidden", view !== SidebarView.OUTLINE);
@@ -242,6 +251,7 @@ class PDFSidebar {
       view !== SidebarView.ATTACHMENTS
     );
     this.layersView.classList.toggle("hidden", view !== SidebarView.LAYERS);
+    this.searchView.classList.toggle("hidden", view !== SidebarView.SEARCH);
 
     if (forceOpen && !this.isOpen) {
       this.open();
@@ -458,6 +468,10 @@ class PDFSidebar {
     });
     this.layersButton.addEventListener("dblclick", () => {
       this.eventBus.dispatch("resetlayers", { source: this });
+    });
+
+    this.searchButton.addEventListener("click", () => {
+      this.switchView(SidebarView.SEARCH);
     });
 
     // Disable/enable views.
